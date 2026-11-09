@@ -1,10 +1,10 @@
-Name:       rustdesk
+Name:       findesk
 Version:    1.5.1
 Release:    0
 Summary:    RPM package
 License:    GPL-3.0
-URL:        https://rustdesk.com
-Vendor:     rustdesk <info@rustdesk.com>
+URL:        https://findesk.finrosa.ru
+Vendor:     findesk <info@findesk.finrosa.ru>
 Requires:   gtk3 libxcb libXfixes alsa-lib libva2 gstreamer1-plugins-base
 Recommends: libayatana-appindicator-gtk3 libxdo
 
