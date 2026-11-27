@@ -501,7 +501,7 @@ jobs:
         if: env.UPLOAD_ARTIFACT == 'true'
         run: |
           pushd ./res/msi
-          python preprocess.py --arp -d ../../rustdesk
+          python preprocess.py --arp -d ../../rustdesk --app-name FinDesk
           nuget restore msi.sln
           $msiPlatform = if ('${{ matrix.job.arch }}' -eq 'aarch64') { 'ARM64' } else { 'x64' }
           msbuild msi.sln -p:Configuration=Release -p:Platform=$msiPlatform /p:TargetVersion=Windows10
@@ -2203,7 +2203,7 @@ jobs:
             export CARGO_INCREMENTAL=0
             export DEB_ARCH=${{ matrix.job.deb_arch }}
             python3 ./build.py --flutter --skip-cargo
-            for name in rustdesk*??.deb; do
+            for name in findesk*??.deb; do
               mv "$name" "${name%%.deb}-${{ matrix.job.arch }}.deb"
             done
 
@@ -2217,7 +2217,7 @@ jobs:
             esac
             HBB=`pwd` rpmbuild ./res/rpm-flutter.spec -bb
             pushd ~/rpmbuild/RPMS/${{ matrix.job.arch }}
-            for name in rustdesk*??.rpm; do
+            for name in findesk*??.rpm; do
                 mv "$name" /workspace/"${name%%.rpm}.rpm"
             done
 
@@ -2231,7 +2231,7 @@ jobs:
             esac
             HBB=`pwd` rpmbuild ./res/rpm-flutter-suse.spec -bb
             pushd ~/rpmbuild/RPMS/${{ matrix.job.arch }}
-            for name in rustdesk*??.rpm; do
+            for name in findesk*??.rpm; do
                 mv "$name" /workspace/"${name%%.rpm}-suse.rpm"
             done
 
@@ -2242,8 +2242,8 @@ jobs:
           prerelease: true
           tag_name: ${{ env.TAG_NAME }}
           files: |
-            rustdesk-*.deb
-            rustdesk-*.rpm
+            findesk-*.deb
+            findesk-*.rpm
 
       - name: Upload deb
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -2834,7 +2834,7 @@ jobs:
       - name: Rename rustdesk
         shell: bash
         run: |
-          for name in rustdesk*??.deb; do
+          for name in findesk*??.deb; do
               # use cp to duplicate deb files to fit other packages.
               cp "$name" "${name%%.deb}-${{ matrix.job.arch }}-sciter.deb"
           done
